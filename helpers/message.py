@@ -54,7 +54,7 @@ async def gpt_handle_text(
 
     response = await asyncio.to_thread(
         OPENAI_CLIENT.responses.create,
-        model='gpt-4',
+        model=model_name,
         input=[
             {
                 "role": "system",
