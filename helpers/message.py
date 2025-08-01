@@ -87,7 +87,9 @@ async def gpt_handle_text(
             price=input_cost,
         )
 
-    response_message = await message.reply(response_text, parse_mode=ParseMode.MARKDOWN_V2)
+    response_text = response_text.replace("**", "*")
+    response_message = await message.reply(response_text, parse_mode=ParseMode.MARKDOWN)
+
     save_user_message(
         user_id=user_id,
         role="assistant",
