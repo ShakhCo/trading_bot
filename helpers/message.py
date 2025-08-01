@@ -9,16 +9,6 @@ from core import OPENAI_CLIENT, AI_MODELS
 from .history_manager import save_user_message, load_user_messages
 
 
-def clean_telegram_html(text: str) -> str:
-    # Fix <br/> to <br>
-    text = text.replace("<br/>", "<br>").replace("<br />", "<br>")
-
-    # Remove unsupported tags (ul, ol, li, span, div, etc.)
-    text = re.sub(r"</?(ul|ol|li|span|div|table|thead|tbody|tr|td|th)[^>]*>", "", text)
-
-    return text
-
-
 async def gpt_handle_text(
         message: Message,
         image_url: str = None
@@ -121,7 +111,10 @@ async def gpt_handle_text(
             price=input_cost if i == 0 else 0,
         )
 
-    response_message = await message.reply(response_text, parse_mode=ParseMode.HTML)
+    try:
+        response_message = await message.reply(response_text, parse_mode=ParseMode.HTML)
+    except Exception as e:
+        response_message = await message.reply(html.escape(response_text))
 
     save_user_message(
         user_id=user_id,
