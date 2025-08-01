@@ -12,7 +12,7 @@ async def gpt_handle_text(
     user_prompt = message.text or message.caption or ""
     message_id = message.message_id
 
-    model_name = 'o4-mini'
+    model_name = 'gpt-4.1-nano'
     history_json = load_user_messages(user_id)
     history = [{"role": msg["role"], "content": msg["content"]} for msg in history_json]
 
@@ -54,7 +54,7 @@ async def gpt_handle_text(
 
     response = await asyncio.to_thread(
         OPENAI_CLIENT.responses.create,
-        model=model_name,
+        model='gpt-4',
         input=[
             {
                 "role": "system",
