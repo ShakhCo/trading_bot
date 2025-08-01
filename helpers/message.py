@@ -1,5 +1,6 @@
 import asyncio
 import re
+from datetime import datetime
 
 from aiogram.enums import ParseMode
 from aiogram.types import Message
@@ -23,6 +24,17 @@ async def gpt_handle_text(
 
     model_name = 'gpt-4.1-nano'
     history_json = load_user_messages(user_id)
+
+    today = datetime.now().date()
+    today_messages = [
+        msg for msg in history_json
+        if "timestamp" in msg and datetime.fromisoformat(msg["timestamp"]).date() == today
+    ]
+
+    if len(today_messages) >= 50:
+        await message.reply("🛑 Kunlik limitga yetdingiz (50 ta xabar). Iltimos, ertaga yana urinib ko‘ring.")
+        return
+
     history = [{"role": msg["role"], "content": msg["content"]} for msg in history_json]
 
     replying_messages_contents = []
