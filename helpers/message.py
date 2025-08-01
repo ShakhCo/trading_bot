@@ -96,7 +96,7 @@ async def gpt_handle_text(
                            f"User first name is {message.from_user.first_name}."
                            f"Current date (tell this if user asks): {now.strftime('%Y-%m-%d')}."
                            f"Current time (tell this if user asks): {now.strftime('%I:%M %p')}."
-                           f"Return simple Telegram-compatible HTML using only <b>, <i>, <pre>, <code>, \n, and <a>"
+                           f"Return simple Telegram-compatible HTML using only <b>, <i>, <pre>, <code>, and '\n'"
             },
             *history
         ],
