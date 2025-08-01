@@ -123,7 +123,7 @@ async def gpt_handle_text(
 
     response_text = format_html_response(response_text)
 
-    response_message = await message.reply(response_text, parse_mode=ParseMode.MARKDOWN)
+    response_message = await message.reply(response_text, parse_mode=ParseMode.HTML)
 
     save_user_message(
         user_id=user_id,
