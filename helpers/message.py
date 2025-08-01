@@ -17,7 +17,7 @@ def markdown_escape(text: str) -> str:
 
 def format_html_response(text: str) -> str:
     # Example: wrap the whole response in <pre> to preserve spacing/indentation
-    return f"<pre>{html.escape(text)}</pre>"
+    return f"{html.escape(text)}"
 
 
 async def gpt_handle_text(
