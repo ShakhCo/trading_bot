@@ -25,7 +25,8 @@ async def gpt_handle_text(
     model_name = 'gpt-4.1-nano'
     history_json = load_user_messages(user_id)
 
-    today = datetime.now().date()
+    now = datetime.now()
+    today = now.date()
     today_messages = [
         msg for msg in history_json
         if msg.get("role") == "user"
@@ -85,7 +86,8 @@ async def gpt_handle_text(
                            "Our major users talk in Uzbek/Russian. "
                            "Most of them, most probably, are Muslim. "
                            f"User first name is {message.from_user.first_name}."
-                           f"Current date is {today}."
+                           f"Current date: {now.strftime("%Y-%m-%d")}."
+                           f"Current time: {now.strftime("%I:%M %p")}."
             },
             *history
         ],
