@@ -83,7 +83,9 @@ async def gpt_handle_text(
                 "role": "system",
                 "content": "You are a helpful assistant. "
                            "Our major users talk in Uzbek/Russian. "
-                           "Most of them, most probably, are Muslim"
+                           "Most of them, most probably, are Muslim. "
+                           f"User first name is {message.from_user.first_name}."
+                           f"Current date is {today}."
             },
             *history
         ],
