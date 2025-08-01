@@ -22,7 +22,7 @@ async def gpt_handle_text(
     user_prompt = message.text or message.caption or ""
     message_id = message.message_id
 
-    model_name = 'gpt-4.1-nano'
+    model_name = 'gpt-4.1-mini'
     history_json = load_user_messages(user_id)
 
     now = datetime.now()
