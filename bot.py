@@ -10,7 +10,7 @@ from pathlib import Path
 import aiohttp
 from aiogram.fsm.context import FSMContext
 
-from core import TELEGRAM_BOT_TOKEN, BASE_URL
+from core import TELEGRAM_BOT_TOKEN, BASE_URL, ADMIN_TELEGRAM_ID
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command
 from aiogram.types import Message
@@ -37,8 +37,11 @@ async def command_start_handler(message: Message) -> None:
     )
 
 
-@dp.message(Command("kxcs3848"))
+@dp.message(Command("users"))
 async def list_users_handler(message: Message):
+    if not int(ADMIN_TELEGRAM_ID) == message.from_user.id:
+        return
+
     if not os.path.exists(USERS_DIR):
         await message.answer("❌ 'users' directory not found.")
         return
