@@ -26,7 +26,12 @@ dp.message.middleware(AuthMiddleware())
 # Command handler
 @dp.message(Command("start"))
 async def command_start_handler(message: Message) -> None:
-    await message.answer("Hello! I'm a bot created with aiogram.")
+    await message.answer(
+        "👋 Salom!\n\n"
+        "Men sun'iy intellekt asosida ishlaydigan chat botman.\n"
+        "Hozircha matnli xabarlar va rasmlarga javob bera olaman.\n\n"
+        "Savoling bormi yoki rasm yubormoqchisan? Marhamat, yozaver 😉"
+    )
 
 
 @dp.message(Command("profile"))
