@@ -34,8 +34,8 @@ async def gpt_handle_text(
            and datetime.fromisoformat(msg["timestamp"]).date() == today
     ]
 
-    if len(today_messages) >= 30:
-        await message.reply("🛑 Kunlik limitga yetdingiz (30 ta xabar). Iltimos, ertaga yana urinib ko‘ring.")
+    if len(today_messages) >= 50:
+        await message.reply("🛑 Kunlik limitga yetdingiz (50 ta xabar). Iltimos, ertaga yana urinib ko‘ring.")
         return
 
     history = [{"role": msg["role"], "content": msg["content"]} for msg in history_json]
