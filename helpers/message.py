@@ -105,7 +105,7 @@ async def gpt_handle_text(
                            f"<s>, <del> → strikethrough"
                            f"<code> → inline code"
                            f"<pre> → code block (monospaced)"
-                           f"<a href="..."> → hyperlink"
+                           f"<a href='...'> → hyperlink"
             },
             *history
         ],
