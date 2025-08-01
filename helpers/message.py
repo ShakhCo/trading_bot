@@ -41,7 +41,7 @@ async def gpt_handle_text(
 
     history = [
         {"role": msg["role"], "content": msg["content"]}
-        for msg in history_json[-50:]
+        for msg in history_json[-60:]
     ]
 
     replying_messages_contents = []
