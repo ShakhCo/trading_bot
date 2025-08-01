@@ -96,7 +96,7 @@ async def gpt_handle_text(
                            f"User first name is {message.from_user.first_name}."
                            f"Current date (tell this if user asks): {now.strftime('%Y-%m-%d')}."
                            f"Current time (tell this if user asks): {now.strftime('%I:%M %p')}."
-                           f"Return simple Telegram-compatible HTML using only <b>, <i>, <pre>, <code>, <br>, and <a>"
+                           f"Return simple Telegram-compatible HTML using only <b>, <i>, <pre>, <code>, \n, and <a>"
             },
             *history
         ],
@@ -121,7 +121,6 @@ async def gpt_handle_text(
             price=input_cost if i == 0 else 0,
         )
 
-    response_text = clean_telegram_html(response_text)
     response_message = await message.reply(response_text, parse_mode=ParseMode.HTML)
 
     save_user_message(
