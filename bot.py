@@ -27,7 +27,7 @@ dp.message.middleware(AuthMiddleware())
 @dp.message(Command("start"))
 async def command_start_handler(message: Message) -> None:
     await message.answer(
-        "👋 Salom!\n\n"
+        f"👋 Assalamu alaykum {message.from_user.first_name}!\n\n"
         "Men sun'iy intellekt asosida ishlaydigan chat botman.\n"
         "Hozircha matnli xabarlar va rasmlarga javob bera olaman.\n\n"
         "Savoling bormi yoki rasm yubormoqchisan? Marhamat, yozaver 😉"
