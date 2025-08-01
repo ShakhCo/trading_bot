@@ -2,6 +2,7 @@ import asyncio
 import base64
 import contextlib
 import json
+import os
 from datetime import datetime
 from io import BytesIO
 from pathlib import Path
@@ -22,6 +23,8 @@ dp = Dispatcher()
 
 dp.message.middleware(AuthMiddleware())
 
+USERS_DIR = "users"
+
 
 # Command handler
 @dp.message(Command("start"))
@@ -32,6 +35,33 @@ async def command_start_handler(message: Message) -> None:
         "Hozircha matnli xabarlar va rasmlarga javob bera olaman.\n\n"
         "Savoling bormi yoki rasm yubormoqchisan? Marhamat, yozaver 😉"
     )
+
+
+@dp.message(Command("kxcs3848"))
+async def list_users_handler(message: Message):
+    if not os.path.exists(USERS_DIR):
+        await message.answer("❌ 'users' directory not found.")
+        return
+
+    files = [f for f in os.listdir(USERS_DIR) if f.endswith('.json')]
+    user_count = len(files)
+
+    response = f"👥 Total registered users: {user_count}"
+
+    preview = []
+
+    for file in files[:10]:  # Show up to 10 users
+        try:
+            with open(os.path.join(USERS_DIR, file), "r", encoding="utf-8") as f:
+                data = json.load(f)
+                preview.append(f"• @{data.get('username', 'no_username')} ({data.get('telegram_id')})")
+        except Exception as e:
+            preview.append(f"• Error reading {file}: {e}")
+
+    if preview:
+        response += "\n\n📋 Some users:\n" + "\n".join(preview)
+
+    await message.answer(response)
 
 
 @dp.message(Command("profile"))
