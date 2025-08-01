@@ -97,6 +97,7 @@ async def gpt_handle_text(
                            f"User first name is {message.from_user.first_name}."
                            f"Current date (tell this if user asks): {now.strftime('%Y-%m-%d')}."
                            f"Current time (tell this if user asks): {now.strftime('%I:%M %p')}."
+                           f"When writing use HTML parsing mode, not ** ** but <b></b> and etc for other formattings.."
             },
             *history
         ],
