@@ -1,4 +1,5 @@
 import asyncio
+import html
 import re
 from datetime import datetime
 
@@ -12,6 +13,11 @@ def markdown_escape(text: str) -> str:
     # Escape all MarkdownV2 special characters
     special_chars = r'[_*[\]()~`>#+-=|{}.!]'
     return re.sub(f'([{special_chars}])', r'\\\1', text)
+
+
+def format_html_response(text: str) -> str:
+    # Example: wrap the whole response in <pre> to preserve spacing/indentation
+    return f"<pre>{html.escape(text)}</pre>"
 
 
 async def gpt_handle_text(
@@ -115,9 +121,7 @@ async def gpt_handle_text(
             price=input_cost if i == 0 else 0,
         )
 
-    # Basic markdown conversion
-    converted = response_text.replace("**", "*")
-    response_text = markdown_escape(converted)
+    response_text = format_html_response(response_text)
 
     response_message = await message.reply(response_text, parse_mode=ParseMode.MARKDOWN)
 
