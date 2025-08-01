@@ -97,15 +97,7 @@ async def gpt_handle_text(
                            f"User first name is {message.from_user.first_name}."
                            f"Current date (tell this if user asks): {now.strftime('%Y-%m-%d')}."
                            f"Current time (tell this if user asks): {now.strftime('%I:%M %p')}."
-                           f"When writing use Telegram HTML parsing mode, not ** ** but <b></b>. "
-                           f"✅ Tags that ARE supported by Telegram HTML:"
-                           f"<b>, <strong> → bold"
-                           f"<i>, <em> → italic"
-                           f"<u> → underline"
-                           f"<s>, <del> → strikethrough"
-                           f"<code> → inline code"
-                           f"<pre> → code block (monospaced)"
-                           f"<a href='...'> → hyperlink"
+                           f"Return simple Telegram-compatible HTML using only <b>, <i>, <pre>, <code>, <br>, and <a>"
             },
             *history
         ],
