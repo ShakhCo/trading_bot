@@ -41,6 +41,7 @@ def save_user_message(
         "model_name": model_name,
         "tokens": tokens,
         "price": f"{price:.8f}",
+        "timestamp": datetime.now().isoformat(),
     })
 
     with open(history_path, "w", encoding="utf-8") as f:
