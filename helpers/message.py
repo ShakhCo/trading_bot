@@ -23,7 +23,6 @@ async def gpt_handle_text(
     message_id = message.message_id
 
     model_name = 'o4-mini'
-    img_model_name = 'gpt-4.1-mini'
     history_json = load_user_messages(user_id)
 
     now = datetime.now()
@@ -82,7 +81,7 @@ async def gpt_handle_text(
 
     response = await asyncio.to_thread(
         OPENAI_CLIENT.responses.create,
-        model=img_model_name if image_url else model_name,
+        model=model_name,
         input=[
             {
                 "role": "system",
@@ -111,7 +110,7 @@ async def gpt_handle_text(
             role="user",
             content=content["content"],
             message_id=message_id,
-            model_name=img_model_name if image_url else model_name,
+            model_name=model_name,
             tokens=input_tokens,
             price=input_cost,
         )
@@ -127,7 +126,7 @@ async def gpt_handle_text(
         role="assistant",
         content=response_text,
         message_id=response_message.message_id,
-        model_name=img_model_name if image_url else model_name,
+        model_name=model_name,
         tokens=output_tokens,
         price=output_cost
     )
