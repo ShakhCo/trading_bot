@@ -9,15 +9,14 @@ from core import OPENAI_CLIENT, AI_MODELS
 from .history_manager import save_user_message, load_user_messages
 
 
-def markdown_escape(text: str) -> str:
-    # Escape all MarkdownV2 special characters
-    special_chars = r'[_*[\]()~`>#+-=|{}.!]'
-    return re.sub(f'([{special_chars}])', r'\\\1', text)
+def clean_telegram_html(text: str) -> str:
+    # Fix <br/> to <br>
+    text = text.replace("<br/>", "<br>").replace("<br />", "<br>")
 
+    # Remove unsupported tags (ul, ol, li, span, div, etc.)
+    text = re.sub(r"</?(ul|ol|li|span|div|table|thead|tbody|tr|td|th)[^>]*>", "", text)
 
-def format_html_response(text: str) -> str:
-    # Example: wrap the whole response in <pre> to preserve spacing/indentation
-    return f"{html.escape(text)}"
+    return text
 
 
 async def gpt_handle_text(
@@ -122,6 +121,7 @@ async def gpt_handle_text(
             price=input_cost if i == 0 else 0,
         )
 
+    response_text = clean_telegram_html(response_text)
     response_message = await message.reply(response_text, parse_mode=ParseMode.HTML)
 
     save_user_message(
