@@ -86,8 +86,8 @@ async def gpt_handle_text(
                            "Our major users talk in Uzbek/Russian. "
                            "Most of them, most probably, are Muslim. "
                            f"User first name is {message.from_user.first_name}."
-                           f"Current date: {now.strftime("%Y-%m-%d")}."
-                           f"Current time: {now.strftime("%I:%M %p")}."
+                           f"Current date: {now.strftime('%Y-%m-%d')}."
+                           f"Current time: {now.strftime('%I:%M %p')}."
             },
             *history
         ],
