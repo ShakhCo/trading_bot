@@ -104,15 +104,15 @@ async def gpt_handle_text(
 
     response_text = response.output_text.strip()
 
-    for content in user_content:
+    for i, content in enumerate(user_content):
         save_user_message(
             user_id=user_id,
             role="user",
             content=content["content"],
             message_id=message_id,
             model_name=model_name,
-            tokens=input_tokens,
-            price=input_cost,
+            tokens=input_tokens if i == 0 else 0,
+            price=input_cost if i == 0 else 0,
         )
 
     # Basic markdown conversion
