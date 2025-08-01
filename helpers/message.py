@@ -1,4 +1,6 @@
 import asyncio
+
+from aiogram.enums import ParseMode
 from aiogram.types import Message
 from core import OPENAI_CLIENT, AI_MODELS
 from .history_manager import save_user_message, load_user_messages
@@ -85,7 +87,7 @@ async def gpt_handle_text(
             price=input_cost,
         )
 
-    response_message = await message.reply(response_text)
+    response_message = await message.reply(response_text, parse_mode=ParseMode.MARKDOWN)
     save_user_message(
         user_id=user_id,
         role="assistant",
