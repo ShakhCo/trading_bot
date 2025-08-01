@@ -130,8 +130,6 @@ async def gpt_handle_text(
             price=input_cost if i == 0 else 0,
         )
 
-    response_text = format_html_response(response_text)
-
     response_message = await message.reply(response_text, parse_mode=ParseMode.HTML)
 
     save_user_message(
