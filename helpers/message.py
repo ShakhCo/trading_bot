@@ -39,7 +39,10 @@ async def gpt_handle_text(
         await message.reply("🛑 Kunlik limitga yetdingiz (100 ta xabar). Iltimos, ertaga yana urinib ko‘ring.")
         return
 
-    history = [{"role": msg["role"], "content": msg["content"]} for msg in history_json]
+    history = [
+        {"role": msg["role"], "content": msg["content"]}
+        for msg in history_json[-50:]
+    ]
 
     replying_messages_contents = []
 
