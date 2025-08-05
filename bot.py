@@ -17,7 +17,7 @@ from aiogram.types import Message
 
 from middlewares.auth import AuthMiddleware
 
-from helpers import gpt_handle_text, with_typing
+from helpers import gpt_handle_text, with_typing, get_user_profile_summary
 
 dp = Dispatcher()
 
@@ -57,12 +57,15 @@ async def list_users_handler(message: Message):
         try:
             with open(os.path.join(USERS_DIR, file), "r", encoding="utf-8") as f:
                 data = json.load(f)
-                preview.append(f"• @{data.get('username', 'no_username')} ({data.get('telegram_id')})")
+                user_id = int(data.get("telegram_id"))
+                username = data.get("username", "no_username")
+                summary = get_user_profile_summary(user_id, username)
+                preview.append(summary)
         except Exception as e:
             preview.append(f"• Error reading {file}: {e}")
 
     if preview:
-        response += "\n\n📋 Some users:\n" + "\n".join(preview)
+        response += "\n\n📋 User usage:\n" + "\n".join(preview)
 
     await message.answer(response)
 
